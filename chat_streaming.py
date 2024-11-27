@@ -25,11 +25,9 @@ async def on_message(message: cl.Message):
     await msg.send()
 
     prompt = get_prompt(message.content)
-    for word in llm(prompt,stream=True):
+    for word in llm(prompt, stream=True):
         await msg.stream_token(word)
-    await msg.update()    
-
-   
+    await msg.update()
 
 
 @cl.on_chat_start
