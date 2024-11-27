@@ -21,9 +21,15 @@ def get_prompt(instruction: str, history: list[str] | None = None) -> str:
 @cl.on_message
 async def on_message(message: cl.Message):
     # response = f"Hello, you just sent: {message.content}!"
+    msg = cl.Message(content="")
+    await msg.send()
+
     prompt = get_prompt(message.content)
-    response = llm(prompt)
-    await cl.Message(response).send()
+    for word in llm(prompt,stream=True):
+        await msg.stream_token(word)
+    await msg.update()    
+
+   
 
 
 @cl.on_chat_start
