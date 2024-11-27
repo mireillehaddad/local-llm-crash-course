@@ -1,5 +1,5 @@
 import chainlit as cl
-from typing import List
+
 
 from ctransformers import AutoModelForCausalLM
 
