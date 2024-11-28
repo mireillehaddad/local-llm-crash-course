@@ -10,17 +10,21 @@ llm = CTransformers(
     max_new_tokens=20,
 )
 
-prompt_template = """### System:\nYou are an AI assistant that gives helpful answers. 
-You answer the question in a short and concise way.
-\n\n### User:\n{instruction}\n\n### Response:\n"""
+prompt_template = """### System:
+You are an AI assistant that gives helpful answers. You answer the question in a short and concise way.
+
+### User:
+{instruction}
+
+### Response:
+"""
 
 prompt = PromptTemplate(template=prompt_template, input_variables=["instruction"])
 # memory = ConversationBufferMemory(memory_key="context")
-chain = LLMChain(llm=llm, prompt=prompt)
-# chain = LLMChain(llm=llm, prompt=prompt, verbose=True, memory=memory)
 
+chain = LLMChain(llm=llm, prompt=prompt, verbose=True)
 
 print(chain.invoke({"instruction": "Which city is the capital of India?"}))
-# print(
-#    chain.invoke({"instruction": "Which city is has the same functionality in the US?"})
-# )
+print(
+    chain.invoke({"instruction": "Which city is has the same functionality in the US?"})
+)
