@@ -16,9 +16,7 @@ You answer the question in a short and concise way.
 
 prompt = PromptTemplate(template=prompt_template, input_variables=["instruction"])
 # memory = ConversationBufferMemory(memory_key="context")
-
 chain = LLMChain(llm=llm, prompt=prompt)
-
 # chain = LLMChain(llm=llm, prompt=prompt, verbose=True, memory=memory)
 
 
