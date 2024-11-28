@@ -23,17 +23,16 @@ async def on_message(message: cl.Message):
     for word in llm(prompt, stream=True):
         await msg.stream_token(word)
         answer += word
-    message_history.append(answer)
     await msg.update()
+    message_history.append(answer)
 
 
 @cl.on_chat_start
-async def on_chat_start():
+def on_chat_start():
+    cl.user_session.set("message_history", [])
     global llm
     llm = AutoModelForCausalLM.from_pretrained(
         "zoltanctoth/orca_mini_3B-GGUF", model_file="orca-mini-3b.q4_0.gguf"
     )
-
-    cl.user_session.set("message_history", [])
 
     await cl.Message("Model initialized. How can I help you?").send()
